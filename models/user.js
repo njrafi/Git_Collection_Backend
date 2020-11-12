@@ -22,6 +22,10 @@ const userSchema = new Schema({
 		type: String,
 		required: false,
 	},
+	githubUser: {
+		type: Object,
+		required: true,
+	},
 	favoriteGames: [
 		{
 			type: Object,

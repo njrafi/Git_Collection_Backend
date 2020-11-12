@@ -1,7 +1,7 @@
 const User = require("../models/user");
 
 exports.postLogin = async (req, res, next) => {
-	const { token, name, email, photoUrl, providerId } = req.body;
+	const { token, name, email, photoUrl, providerId, githubUser } = req.body;
 	try {
 		const user = await User.findOne({ token: token });
 		if (user) {
@@ -19,6 +19,7 @@ exports.postLogin = async (req, res, next) => {
 			email: email,
 			photoUrl: photoUrl,
 			providerId: providerId,
+			githubUser: githubUser,
 		});
 
 		await newUser.save();
@@ -33,4 +34,3 @@ exports.postLogin = async (req, res, next) => {
 		return err;
 	}
 };
-
