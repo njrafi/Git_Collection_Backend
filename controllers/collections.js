@@ -1,10 +1,11 @@
 const User = require("../models/user");
 
-exports.postFavoriteGames = async (req, res, next) => {
-	const { userToken, favoriteGames } = req.body;
-	console.log(
-		`Post Favorite Games, userToken: ${userToken}, favoriteGamesCount: ${favoriteGames.length}`
-	);
+exports.postCollection = async (req, res, next) => {
+	const { userToken, collection: newCollection } = req.body;
+	if (process.env.NODE_ENV !== "production")
+		console.log(
+			`Post Colection, userToken: ${userToken}, favoriteGamesCount: ${newCollection.length}`
+		);
 	try {
 		const user = await User.findOne({ token: userToken });
 		if (!user) {
@@ -15,10 +16,11 @@ exports.postFavoriteGames = async (req, res, next) => {
 			return res.status(401).json(response);
 		}
 
-		user.favoriteGames = favoriteGames;
+		user.collections = [...user.collections, newCollection];
 		await user.save();
 		const response = {
-			message: "Favorite Games Updates",
+			message: "New Collection Added",
+			collections: user.collections,
 		};
 		return res.status(200).json(response);
 	} catch (err) {
