@@ -8,7 +8,7 @@ const cors = require("cors");
 const errorMiddlewares = require("./middlewares/errors");
 
 const authRoutes = require("./routes/auth");
-// const gamesRoutes = require("./routes/games");
+const collectionsRoutes = require("./routes/collections");
 // const profileRoutes = require("./routes/profile");
 
 const app = express();
@@ -19,7 +19,7 @@ app.use(express.json({ limit: "10mb" }));
 
 // Register routes here
 app.use("/auth", authRoutes);
-// app.use("/games", gamesRoutes);
+app.use("/collections", collectionsRoutes);
 // app.use("/profile", profileRoutes);
 app.get("/", (req, res) => {
 	res.json({

@@ -26,7 +26,7 @@ const userSchema = new Schema({
 		type: Object,
 		required: true,
 	},
-	favoriteGames: [
+	collections: [
 		{
 			type: Object,
 		},

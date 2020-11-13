@@ -1,8 +1,10 @@
 const User = require("../models/user");
 
 exports.postFavoriteGames = async (req, res, next) => {
-    const { userToken, favoriteGames } = req.body;
-    console.log(`Post Favorite Games, userToken: ${userToken}, favoriteGamesCount: ${favoriteGames.length}`)
+	const { userToken, favoriteGames } = req.body;
+	console.log(
+		`Post Favorite Games, userToken: ${userToken}, favoriteGamesCount: ${favoriteGames.length}`
+	);
 	try {
 		const user = await User.findOne({ token: userToken });
 		if (!user) {
@@ -25,9 +27,9 @@ exports.postFavoriteGames = async (req, res, next) => {
 	}
 };
 
-exports.getFavoriteGames = async (req, res, next) => {
-    const userToken = req.params.userToken;
-    console.log(`get Favorite Games, userToken: ${userToken}`)
+exports.getCollections = async (req, res, next) => {
+	const userToken = req.query.userToken;
+	console.log(`get Collections Games, userToken: ${userToken}`);
 	try {
 		const user = await User.findOne({ token: userToken });
 		if (!user) {
@@ -38,14 +40,14 @@ exports.getFavoriteGames = async (req, res, next) => {
 			return res.status(401).json(response);
 		}
 		const response = {
-			userToken: userToken,
-			favoriteGames: user.favoriteGames,
+			message: "Collection retrieved successful",
+			favoriteGames: user.collections,
 		};
 		console.log(
 			process.env.NODE_ENV === "production"
 				? "🎉"
-				: "Get FavoriteGames Retrieved: ",
-			user.favoriteGames.length
+				: "Get Collections Retrieved: ",
+			user.collections.length
 		);
 		return res.status(200).json(response);
 	} catch (err) {

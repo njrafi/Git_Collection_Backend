@@ -9,6 +9,8 @@ exports.postLogin = async (req, res, next) => {
 				message: "Login Successfull",
 				user: user,
 			};
+			user.githubUser = githubUser;
+			await user.save();
 			console.log(process.env.NODE_ENV === "production" ? "🎉" : response);
 			return res.status(200).json(response);
 		}
